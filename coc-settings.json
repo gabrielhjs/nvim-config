@@ -1,0 +1,10 @@
+{
+  "coc.source.emoji.filetypes": ["markdown"],
+  "codeLens.enable": true,
+  "coc.preferences.formatOnSaveFiletypes": ["python", "yaml", "json"],
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider": "black",
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+}

@@ -37,10 +37,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 " Auto-close braces and scopes
 Plug 'jiangmiao/auto-pairs'
-
-" Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 " Or build from source code by using yarn: https://yarnpkg.com
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 
@@ -48,7 +44,26 @@ Plug 'arcticicestudio/nord-vim'
 
 Plug 'zivyangll/git-blame.vim'
 
+" For Typescript
+
+Plug 'pangloss/vim-javascript'    " JavaScript support
+Plug 'leafgarland/typescript-vim' " TypeScript syntax
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+Plug 'jparise/vim-graphql'        " GraphQL syntax
+Plug 'ianks/vim-tsx'
+
+" For Markdown
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+
+" For TODOs
+Plug 'nvim-lua/plenary.nvim'
+Plug 'folke/todo-comments.nvim'
 call plug#end()
+lua << EOF
+  require("todo-comments").setup {}
+EOF
 
 colorscheme nord
 
@@ -89,14 +104,13 @@ set signcolumn=yes
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " Show diagnostic popup on cursor hover
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 let g:rustfmt_autosave = 1
-let g:coc_config_file="$HOME/.config/coc/settings.json"
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1 " Show hidden files in NerdTree buffer.
 
@@ -113,3 +127,11 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gv :vsp<CR><Plug>(coc-definition)<C-W>L
 nnoremap <leader>s :<C-u>call gitblame#echo()<CR>
 set number
+
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
+
+" For tsx
+au BufNewFile,BufRead *.ts setlocal filetype=typescript
+au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+
